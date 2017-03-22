@@ -1,31 +1,49 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Vistor Table Page";
 }
-
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+<div class="text-center">
+    <h1>Dixie Adoptables</h1>
+    <p>Visitor Log</p>
 </div>
 
+
+
+
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+    <a href="@Url.Action("Add","Vistor")" class="btn btn-success" aria-label="Add Le">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New FAQ
+    </a>
+    <br />
+    <br />
+    <table class="table table-striped">
+        <tr class="tableHeader">
+            <th>Delete</th>
+            <th>Edit</th>
+            <th>Date</th>
+            <th>Name</th>
+            <th>D.L#</th>
+            <th>Time In</th>
+            <th>Time Out</th>
+        </tr>
+        @foreach (var v in Model)
+        {
+            string vistorRowId = $"vistorRow{v.DLID}";
+            <tr id="@vistorRowId">
+                <th>
+                    <button type="button" class="btn btn-danger" aria-label="Remove FAQ" onclick="removeFAQ('@v.DLID')">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </button>
+                </th>
+                <th>
+                    <a href="@Url.Action("Edit","FAQ", new { id = v.DLID })" type="button" class="btn btn-primary" aria-label="Edit FAQ">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    </a>
+                </th>
+                <th>@v.Name</th>
+                <th>@v.DLID</th>
+                <th>@v.TimeIn</th>
+                <th>@v.TimeOut</th>
+            </tr>
+        }
+    </table>
 </div>
